@@ -1,73 +1,124 @@
-# React + TypeScript + Vite
+# Kanban Task Board (Zustand)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple Kanban task board built with **React + TypeScript + Zustand** to learn global state management in modern React applications.
 
-Currently, two official plugins are available:
+This project demonstrates how Zustand can replace heavier state management solutions like Redux for small to medium-sized apps.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* React
+* TypeScript
+* Vite
+* Zustand
+* CSS3
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Features
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+* Add new tasks
+* Move tasks between columns (Todo → In Progress → Done)
+* Delete tasks
+* Global state management with Zustand
+* State persistence using localStorage
+* Clean component architecture
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Project Structure
+
+```
+src
+│
+├── components
+│   ├── AddTask.tsx
+│   ├── Board.tsx
+│   ├── Column.tsx
+│   └── TaskCard.tsx
+│
+├── store
+│   └── taskStore.ts
+│
+├── types
+│   └── task.ts
+│
+├── styles.css
+├── App.tsx
+└── main.tsx
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Zustand Store Concept
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+The global store manages the application state:
+
 ```
+tasks: Task[]
+
+addTask()
+deleteTask()
+moveTask()
+```
+
+Components subscribe to only the state they need:
+
+```
+const tasks = useTaskStore((state) => state.tasks)
+```
+
+This avoids prop drilling and keeps components simple.
+
+---
+
+## Local Development
+
+Clone the repository:
+
+```
+git clone https://github.com/aviraL27/zustand-kanban-board.git
+```
+
+Go into the project:
+
+```
+cd zustand-kanban-board
+```
+
+Install dependencies:
+
+```
+npm install
+```
+
+Start the development server:
+
+```
+npm run dev
+```
+
+The app will run at:
+
+```
+http://localhost:5173
+```
+
+---
+
+## Learning Goals
+
+This project was built to understand:
+
+* Zustand global state management
+* React component architecture
+* Selective state subscriptions
+* Persistent state using middleware
+* Building small React projects with Vite
+
+---
+
+## License
+
+This project is for learning purposes.
